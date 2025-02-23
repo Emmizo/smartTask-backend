@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Team;
 use Laravel\Passport\HasApiTokens;
-;
+
 
 
 /**
@@ -42,16 +42,7 @@ class User extends Authenticatable
     "status"];
 
 
- // User can be part of many tasks
- public function tasks(): BelongsToMany
- {
-     return $this->belongsToMany(Task::class, 'task_team');
- }
 
- public function projects()
-{
-    return $this->belongsToMany(Project::class, 'project_team');
-}
 
 
     /**

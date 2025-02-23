@@ -22,7 +22,12 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'status_id' => 'required|in:1,2,3',
+            'user_id' => 'required|exists:users,id',
+            'project_id' => 'required|exists:projects,id',
+            'tag_id' => 'required|exists:tags,id',
+            'due_date' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
 
 
         ]);
@@ -32,26 +37,23 @@ class TaskController extends Controller
         // Upload Image (if exists)
     $imagePath = $request->file('image') ? $request->file('image')->store('task_images', 'public') : null;
 
-    // Get Authenticated User ID
-    $userId = Auth::id();
+
 
     // Insert Task
     $task = Task::create([
-        'user_id' => $userId,
+        'user_id' => $request->user_id,
+        'project_id' => $request->project_id,
+        'tag_id' => $request->tag_id,
         'title' => $request->title,
         'description' => $request->description,
         'status_id' => $request->status_id,
         'image' => $imagePath,
-        'team' => $request->team,
-        'tag_id' => $request->tag_id
+        'due_date' => $request->due_date,
     ]);
 
-    // Attach Team Members (if provided)
-    if ($request->has('team')) {
-        $task->team()->sync($request->team);
-    }
+    $tags = \DB::insert('insert into task_tag (task_id, tag_id) values (?, ?)', [$task->id, $request->tag_id]);
 
-    return response()->json($task->load('team'), 201);
+    return response()->json(['new task created'], 201);
     }
 
     public function show(Task $task)

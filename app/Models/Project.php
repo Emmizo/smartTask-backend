@@ -13,21 +13,19 @@ class Project extends Model
 
     protected $fillable = ['name', 'description', 'owner_id'];
 
-    // A project belongs to an owner (user)
-    public function owner(): BelongsTo
+    public function users()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsToMany(User::class, 'teams', 'project_id', 'user_id');
     }
 
-    // A project has many users (team members)
-    public function users(): BelongsToMany
+    public function tasks()
     {
-        return $this->belongsToMany(User::class, 'project_user');
+        return $this->hasMany(Task::class);
     }
 
-    // A project has many tasks
-    public function tasks(): BelongsToMany
+    // In User model
+    public function projects()
     {
-        return $this->belongsToMany(Task::class, 'project_task');
+        return $this->belongsToMany(Project::class, 'teams', 'user_id', 'project_id');
     }
 }
