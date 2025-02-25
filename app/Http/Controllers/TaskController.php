@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -13,7 +14,23 @@ class TaskController extends Controller
 
     public function index()
     {
-        return response()->json(Auth::user()->tasks()->with('tags')->get());
+        $today = Carbon::today()->toDateString();
+
+        // Fetch tasks created or updated today with their associated projects
+        $tasks = \DB::table('tasks')
+            ->join('projects', 'tasks.project_id', '=', 'projects.id')
+            ->whereDate('tasks.created_at', $today)
+            ->orWhereDate('tasks.updated_at', $today)
+            ->orderBy('tasks.created_at', 'desc')
+            ->select(
+                'tasks.*',
+                'projects.id as project_id',
+                'projects.name as project_name',
+                'projects.created_at as project_created_at',
+                'projects.updated_at as project_updated_at'
+            )
+            ->get();
+        return response()->json(['data' => $tasks,'status'=>200],200);
     }
 
     public function store(Request $request)
@@ -35,8 +52,14 @@ class TaskController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         // Upload Image (if exists)
-    $imagePath = $request->file('image') ? $request->file('image')->store('task_images', 'public') : null;
-
+        $directory = public_path().'/task_images';
+    if (!is_dir($directory)) {
+        mkdir($directory);
+        chmod($directory, 0777);
+    }
+    $imageName = strtotime(date('Y-m-d H:i:s')) . '-' . str_replace(' ', '-', $request->file('image')->getClientOriginalName());
+    $request->file('image')->move($directory, $imageName);
+    $imagePath = 'task_images/'.$imageName;
 
 
     // Insert Task

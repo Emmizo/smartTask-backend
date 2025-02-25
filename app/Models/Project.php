@@ -11,7 +11,11 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'owner_id'];
+    protected $fillable = ['name', 'description', 'owner_id','deadline'];
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+    ];
 
     public function users()
     {

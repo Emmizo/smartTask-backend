@@ -8,10 +8,10 @@ use App\Http\Controllers\ProjectController;
 
 
 
-
+Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
 Route::post('signup', [AuthController::class, 'signUp']);
 Route::post('login', [AuthController::class, 'login']);
-
+});
 
 Route::group(['namespace' => 'Api', 'prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::get('users', [AuthController::class, 'getUsers']);
@@ -26,6 +26,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1','middleware' => 'auth:api']
 
 
         // Get all tasks of authenticated user
+        Route::get('/tasks', [TaskController::class, 'index']);
         Route::post('/createTask', [TaskController::class, 'store']); // Create a new task
         Route::get('/tasks/{task}', [TaskController::class, 'show']); // Get a single task
         Route::put('/tasks/{task}', [TaskController::class, 'update']); // Update a task
