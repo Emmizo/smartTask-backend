@@ -11,6 +11,8 @@ use App\Http\Controllers\ProjectController;
 Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
 Route::post('signup', [AuthController::class, 'signUp']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
+Route::get('getAllTags', [TaskController::class,'getTags']); // Get all tags
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'v1','middleware' => 'auth:api'], function () {
@@ -31,5 +33,6 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1','middleware' => 'auth:api']
         Route::get('/tasks/{task}', [TaskController::class, 'show']); // Get a single task
         Route::put('/tasks/{task}', [TaskController::class, 'update']); // Update a task
         Route::delete('/tasks/{task}', [TaskController::class, 'destroy']); // Delete a task
+
 
 });

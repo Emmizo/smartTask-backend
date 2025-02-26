@@ -13,25 +13,51 @@ class TaskController extends Controller
 
 
     public function index()
-    {
-        $today = Carbon::today()->toDateString();
+{
+    $today = Carbon::today()->toDateString();
 
-        // Fetch tasks created or updated today with their associated projects
-        $tasks = \DB::table('tasks')
-            ->join('projects', 'tasks.project_id', '=', 'projects.id')
-            ->whereDate('tasks.created_at', $today)
-            ->orWhereDate('tasks.updated_at', $today)
-            ->orderBy('tasks.created_at', 'desc')
-            ->select(
-                'tasks.*',
-                'projects.id as project_id',
-                'projects.name as project_name',
-                'projects.created_at as project_created_at',
-                'projects.updated_at as project_updated_at'
-            )
-            ->get();
-        return response()->json(['data' => $tasks,'status'=>200],200);
+    // Fetch tasks created or updated today with their associated projects
+    $tasks = \DB::table('tasks')
+        ->join('projects', 'tasks.project_id', '=', 'projects.id')
+        ->whereDate('tasks.created_at', $today)
+        ->orWhereDate('tasks.updated_at', $today)
+        ->orderBy('tasks.created_at', 'desc')
+        ->select(
+            'tasks.*',
+            'projects.id as project_id',
+            'projects.name as project_name',
+            'projects.created_at as project_created_at',
+            'projects.updated_at as project_updated_at'
+        )
+        ->get();
+
+    foreach ($tasks as $task) {
+        \Log::info('Processing task:', ['task_id' => $task->id, 'user_id' => $task->user_id]);
+
+        // Get the specific user who matches the task's user_id
+        $user = \DB::table('users')
+            ->where('id', $task->user_id)
+            ->first();
+
+        if ($user) {
+            $task->team = [
+                [
+                    'id' => $user->id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'profile_picture' => $user->profile_picture,
+                    'url' => config('app.url'),
+                ]
+            ];
+            \Log::info('Found user for task:', ['task_id' => $task->id, 'user_id' => $user->id]);
+        } else {
+            $task->team = [];
+            \Log::info('No user found for task:', ['task_id' => $task->id, 'user_id' => $task->user_id]);
+        }
     }
+
+    return response()->json(['data' => $tasks, 'status' => 200], 200);
+}
 
     public function store(Request $request)
     {
@@ -127,5 +153,9 @@ class TaskController extends Controller
 
         $task->delete();
         return response()->json(['message' => 'Task deleted']);
+    }
+    public function getTags(){
+        $tags = \DB::table('tags')->get();
+        return response()->json($tags);
     }
 }
