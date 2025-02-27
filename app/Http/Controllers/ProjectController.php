@@ -174,4 +174,9 @@ return response()->json($projects);
         $project->delete();
         return response()->json(['message' => 'Project deleted successfully']);
     }
+
+    public function getProject(){
+        $projects = Project::all();
+        return response()->json($projects);
+    }
 }

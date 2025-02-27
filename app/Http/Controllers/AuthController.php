@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Passport\HasApiTokens;
-
+use Illuminate\Support\Facades\Auth;
+use PragmaRX\Google2FA\Google2FA;
+use OTPHP\TOTP;
 
 class AuthController extends Controller
 {
@@ -234,4 +236,99 @@ class AuthController extends Controller
         $users = User::all();
         return response()->json($users);
     }
+
+    public function googleLogin(Request $request)
+{
+    try {
+        $idToken = $request->input('idtoken');
+
+        if (!$idToken) {
+            return response()->json(['error' => 'ID Token is required'], 400);
+        }
+
+        // Verify the ID Token
+        $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]); // Set your client ID
+        $payload = $client->verifyIdToken($idToken);
+
+        if (!$payload) {
+            return response()->json(['error' => 'Invalid ID Token'], 401);
+        }
+
+        // Extract user details
+        $googleId = $payload['sub'];
+        $email = $payload['email'] ?? $googleId . '@google.com';
+        $name = $payload['name'] ?? 'Google User';
+
+        // Check if user exists
+        $user = User::where('email', $email)->first();
+
+        // If user does not exist, create one
+        if (!$user) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'provider' => 'google',
+                'provider_id' => $googleId,
+                'password' => bcrypt(uniqid()),
+            ]);
+        }
+
+        // Generate access token
+        $token = $user->createToken('Google Login Token')->accessToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Authentication failed'], 500);
+    }
+}
+
+    public function generate2FASecret()
+{
+    $user = Auth::user();
+    $google2fa = new Google2FA();
+
+    $secretKey = $google2fa->generateSecretKey();
+
+    // Save the secret to the user
+    $user->google2fa_secret = $secretKey;
+    $user->save();
+
+    return response()->json([
+        'secret' => $secretKey,
+        'qr_code' => 'otpauth://totp/MyApp?secret='.$secretKey.'&issuer=MyApp'
+    ]);
+}
+public function verify2FA(Request $request)
+{
+    $request->validate([
+        'otp' => 'required|digits:6'
+    ]);
+
+    $user = Auth::user();
+    $google2fa = new Google2FA();
+
+    $isValid = $google2fa->verifyKey($user->google2fa_secret, $request->otp);
+
+    if ($isValid) {
+        return response()->json(['message' => '2FA verified successfully'], 200);
+    }
+
+    return response()->json(['error' => 'Invalid OTP'], 401);
+}
+public function verifyOtp(Request $request)
+{
+    $user = auth()->user();
+    $otp = $request->otp;
+
+    // Retrieve user's stored secret key
+    $totp = TOTP::create($user->otp_secret);
+    if ($totp->verify($otp)) {
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['error' => 'Invalid OTP'], 401);
+}
 }

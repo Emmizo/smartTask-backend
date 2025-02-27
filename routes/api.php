@@ -12,7 +12,11 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
 Route::post('signup', [AuthController::class, 'signUp']);
 Route::post('login', [AuthController::class, 'login']);
 Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
-Route::get('getAllTags', [TaskController::class,'getTags']); // Get all tags
+Route::get('getAllTags', [TaskController::class,'getTags']);
+Route::get('getTaskTags', [TaskController::class,'getTaskTags']);
+Route::post('auth/google/callback', [AuthController::class, 'googleLogin']);
+Route::post('deleteTask', [TaskController::class, 'deleteTask']);
+
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'v1','middleware' => 'auth:api'], function () {
@@ -25,10 +29,12 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1','middleware' => 'auth:api']
     Route::get('/projects/{id}', [ProjectController::class, 'show']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+    Route::get('/listProjects', [ProjectController::class, 'getProject']); // Get tasks for a project
 
 
         // Get all tasks of authenticated user
         Route::get('/tasks', [TaskController::class, 'index']);
+        Route::get('allTasks', [TaskController::class, 'allTasks']);
         Route::post('/createTask', [TaskController::class, 'store']); // Create a new task
         Route::get('/tasks/{task}', [TaskController::class, 'show']); // Get a single task
         Route::put('/tasks/{task}', [TaskController::class, 'update']); // Update a task

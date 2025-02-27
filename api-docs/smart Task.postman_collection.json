@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "5543da37-b50a-44c1-bacd-7568771631a7",
+		"name": "smart Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7583512"
+	},
+	"item": [
+		{
+			"name": "create project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTcxNGU5YTUwNmNiMmJkZjI3ZjJlNmEyNjVkYTlkNTk2Zjg0ZWU0YzNmNTFmOGJmNmIzZDQ5ZDkxYzhlNGUyNjZlOTM3ZDdhZmEwNjRjOTMiLCJpYXQiOjE3NDAzMDA5ODAuNTcyMTc5LCJuYmYiOjE3NDAzMDA5ODAuNTcyMTgsImV4cCI6MTc3MTgzNjk4MC41NzA0MTQsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.Xm2q4msztSvGlkZBV41OlLx9zBjbthuY_vLNFoJhIiBHuNF_CKZCMLLNIx4mpbAvrLAQxg6BLsiJCWz_CEE6nC-ioMIz4mvFfFnbOmYRcBADsbNB9Ys9lUzVkkRrApVKPuflm_53YirH1cZs7_XE13DzEB982JA-eANQAmFNnL_bwbDJ4v7FW3o5m6r0fjz1coc00b4w58GnMdtrbIrPcv4XC44K7Fo8cdl7kV7I-UNClcd-68FyBEnIhoJ_b8qavHnLmrFwH5DZg9jP5Yi4ktFGQDrdNiNu1ol-OnN3YjsZUk5jpwfR1WzXSlDtKTZUrD4bxotWWGgc7HjQxBnR1zXcdz18IkT7QIu0VrxCN5U3L248jqePp9EnXQYIqr-jBMogUU3h2aACDzv3PFppeeu0u72nln9oHtmOU_qduRBATipr3fO2ggndZ49UIPmwgSVqS85a0lHAVCcsFxgX83XUNTLeKdyAfftbUn75gEVJoO8aeMB21riLUbcP2T3v-vPB8ucIx2GkarTnOfTa4X1fUA3wvOL_wHuzVlzAOhRjnYkOgN4N0Xop1TN9P7BoQMn9-AD8bQ21DZi0Wkck5SKE0gXNWQ1bOzROkHLAZtMVkzoxsUEFy27hR_KE6Anzb8tMYEMTcdfT31PacZ-JxnywJfKxslB5vLkR4Ahd5o4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "GBOH",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Good bye old home",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/create_projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"create_projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "emmizokwizera@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Kwizera21",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign up",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "emmy",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "emmizokwizera@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Kwizera21",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "Kwizera21",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list of project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTcxNGU5YTUwNmNiMmJkZjI3ZjJlNmEyNjVkYTlkNTk2Zjg0ZWU0YzNmNTFmOGJmNmIzZDQ5ZDkxYzhlNGUyNjZlOTM3ZDdhZmEwNjRjOTMiLCJpYXQiOjE3NDAzMDA5ODAuNTcyMTc5LCJuYmYiOjE3NDAzMDA5ODAuNTcyMTgsImV4cCI6MTc3MTgzNjk4MC41NzA0MTQsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.Xm2q4msztSvGlkZBV41OlLx9zBjbthuY_vLNFoJhIiBHuNF_CKZCMLLNIx4mpbAvrLAQxg6BLsiJCWz_CEE6nC-ioMIz4mvFfFnbOmYRcBADsbNB9Ys9lUzVkkRrApVKPuflm_53YirH1cZs7_XE13DzEB982JA-eANQAmFNnL_bwbDJ4v7FW3o5m6r0fjz1coc00b4w58GnMdtrbIrPcv4XC44K7Fo8cdl7kV7I-UNClcd-68FyBEnIhoJ_b8qavHnLmrFwH5DZg9jP5Yi4ktFGQDrdNiNu1ol-OnN3YjsZUk5jpwfR1WzXSlDtKTZUrD4bxotWWGgc7HjQxBnR1zXcdz18IkT7QIu0VrxCN5U3L248jqePp9EnXQYIqr-jBMogUU3h2aACDzv3PFppeeu0u72nln9oHtmOU_qduRBATipr3fO2ggndZ49UIPmwgSVqS85a0lHAVCcsFxgX83XUNTLeKdyAfftbUn75gEVJoO8aeMB21riLUbcP2T3v-vPB8ucIx2GkarTnOfTa4X1fUA3wvOL_wHuzVlzAOhRjnYkOgN4N0Xop1TN9P7BoQMn9-AD8bQ21DZi0Wkck5SKE0gXNWQ1bOzROkHLAZtMVkzoxsUEFy27hR_KE6Anzb8tMYEMTcdfT31PacZ-JxnywJfKxslB5vLkR4Ahd5o4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTcxNGU5YTUwNmNiMmJkZjI3ZjJlNmEyNjVkYTlkNTk2Zjg0ZWU0YzNmNTFmOGJmNmIzZDQ5ZDkxYzhlNGUyNjZlOTM3ZDdhZmEwNjRjOTMiLCJpYXQiOjE3NDAzMDA5ODAuNTcyMTc5LCJuYmYiOjE3NDAzMDA5ODAuNTcyMTgsImV4cCI6MTc3MTgzNjk4MC41NzA0MTQsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.Xm2q4msztSvGlkZBV41OlLx9zBjbthuY_vLNFoJhIiBHuNF_CKZCMLLNIx4mpbAvrLAQxg6BLsiJCWz_CEE6nC-ioMIz4mvFfFnbOmYRcBADsbNB9Ys9lUzVkkRrApVKPuflm_53YirH1cZs7_XE13DzEB982JA-eANQAmFNnL_bwbDJ4v7FW3o5m6r0fjz1coc00b4w58GnMdtrbIrPcv4XC44K7Fo8cdl7kV7I-UNClcd-68FyBEnIhoJ_b8qavHnLmrFwH5DZg9jP5Yi4ktFGQDrdNiNu1ol-OnN3YjsZUk5jpwfR1WzXSlDtKTZUrD4bxotWWGgc7HjQxBnR1zXcdz18IkT7QIu0VrxCN5U3L248jqePp9EnXQYIqr-jBMogUU3h2aACDzv3PFppeeu0u72nln9oHtmOU_qduRBATipr3fO2ggndZ49UIPmwgSVqS85a0lHAVCcsFxgX83XUNTLeKdyAfftbUn75gEVJoO8aeMB21riLUbcP2T3v-vPB8ucIx2GkarTnOfTa4X1fUA3wvOL_wHuzVlzAOhRjnYkOgN4N0Xop1TN9P7BoQMn9-AD8bQ21DZi0Wkck5SKE0gXNWQ1bOzROkHLAZtMVkzoxsUEFy27hR_KE6Anzb8tMYEMTcdfT31PacZ-JxnywJfKxslB5vLkR4Ahd5o4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Crud",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Generate API for CRUD",
+							"type": "text"
+						},
+						{
+							"key": "status_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/kwizera/Documents/images/internet  comp day 211.jpg"
+						},
+						{
+							"key": "project_id",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "due_date",
+							"value": "2025-02-28 23:59:00",
+							"type": "text"
+						},
+						{
+							"key": "tag_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/createTask",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"createTask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "list of tasks and teams",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZTZlNmQ3MTk2ZWZkMjI0NzdiZDljZGMwZDc5ZWJiMGM5YTEyMzE3ZTFmYmRhYjdiZGI3YjViMDhmM2I4MWFhZTMyMTBiNGRlMDRjYjhhZjIiLCJpYXQiOjE3NDAzOTMyNjQuNjY4OTAzLCJuYmYiOjE3NDAzOTMyNjQuNjY4OTAzLCJleHAiOjE3NzE5MjkyNjQuNjY3MDQxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZB4QoJFHYyoU_x_eUJK0TdiEpmSauw_ZM8i0SRQ-kEqk3K2DzoWhu_eBQlj2A9U9tE00bKSKM7BWzK8MCv28gxnAfBhhJav3gKghIVwmmV60C271POcrptU1ZLMH6IOCsF3MfNLqZ1VD9xyaaTScqijdfuiAm8YN58a6GLBT6PtCQIKFRfBGgFnQ7Dr3ClZZG5kwLfhVTKzZ06Aojk0KB0mkSpgSBDQkFWE9v3W9I7CMr_7ChqjJ1anBhJt7ugDHsBmbWfZhw8NWorwRl21f0hy5__9DLO4kkWI2pfjs8vD4fIyPAvAjM5Ggfo0mjVqafPQJ9tr2MsOg7HGyEbSfKraF81_Q9nQsVyjiRZCVxkaKlknkW5F4UcDdwkXDIpVyc6sLowahA0wbqINySbEPwSIr6kd7AG-ca2dPablLCjWkRMcQj3Ikr6P4Pt_U1EANrfR1-MKZvwLTlXmVVsIOS0xBa1vrihz6l9QdqX87yBJo5WqfTv8V2BUc7cO43gioy2SQYxn8SSctOvlkhzMotBe7Ksuc1gjsNdTRjaGkL8uMSz4oL3JrOtmIqYUsnP6cNS3yMWU7VkxH7cMy8D7YnO96xyI5Q0-Jxivx8SFYwYs9Gb5dZkrCr6PCQv5oEc8hrRRVWI_aLSwHAHwwNEncbAeSoHVnK0DWUdDmBMTD9Us",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/getAllUsers",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"getAllUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all tags",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "all tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZTZlNmQ3MTk2ZWZkMjI0NzdiZDljZGMwZDc5ZWJiMGM5YTEyMzE3ZTFmYmRhYjdiZGI3YjViMDhmM2I4MWFhZTMyMTBiNGRlMDRjYjhhZjIiLCJpYXQiOjE3NDAzOTMyNjQuNjY4OTAzLCJuYmYiOjE3NDAzOTMyNjQuNjY4OTAzLCJleHAiOjE3NzE5MjkyNjQuNjY3MDQxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZB4QoJFHYyoU_x_eUJK0TdiEpmSauw_ZM8i0SRQ-kEqk3K2DzoWhu_eBQlj2A9U9tE00bKSKM7BWzK8MCv28gxnAfBhhJav3gKghIVwmmV60C271POcrptU1ZLMH6IOCsF3MfNLqZ1VD9xyaaTScqijdfuiAm8YN58a6GLBT6PtCQIKFRfBGgFnQ7Dr3ClZZG5kwLfhVTKzZ06Aojk0KB0mkSpgSBDQkFWE9v3W9I7CMr_7ChqjJ1anBhJt7ugDHsBmbWfZhw8NWorwRl21f0hy5__9DLO4kkWI2pfjs8vD4fIyPAvAjM5Ggfo0mjVqafPQJ9tr2MsOg7HGyEbSfKraF81_Q9nQsVyjiRZCVxkaKlknkW5F4UcDdwkXDIpVyc6sLowahA0wbqINySbEPwSIr6kd7AG-ca2dPablLCjWkRMcQj3Ikr6P4Pt_U1EANrfR1-MKZvwLTlXmVVsIOS0xBa1vrihz6l9QdqX87yBJo5WqfTv8V2BUc7cO43gioy2SQYxn8SSctOvlkhzMotBe7Ksuc1gjsNdTRjaGkL8uMSz4oL3JrOtmIqYUsnP6cNS3yMWU7VkxH7cMy8D7YnO96xyI5Q0-Jxivx8SFYwYs9Gb5dZkrCr6PCQv5oEc8hrRRVWI_aLSwHAHwwNEncbAeSoHVnK0DWUdDmBMTD9Us",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/allTasks",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"allTasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "social login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/google/callback",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"google",
+						"callback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task Tags",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/api/v1/deleteTask",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "task_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/deleteTask",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"deleteTask"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
