@@ -3,13 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Team;
 use Laravel\Passport\HasApiTokens;
-
-
 
 /**
  * @OA\Schema(
@@ -27,25 +25,28 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens,HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
- /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable =
-    ['first_name',
-    "last_name",
-    'email',
-    'password',
-    'profile_picture',
-    'phone',
-    "status"];
-
-
-
-
+        [
+            'name',
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+            'profile_picture',
+            'phone',
+            'provider',
+            'provider_id',
+            'google2fa_secret',
+            'has_2fa_enabled',
+            'status',
+        ];
 
     /**
      * The attributes that should be hidden for serialization.
