@@ -78,14 +78,38 @@ class AuthController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->save();
-        // Generate Passport token
-        $token = $user->createToken('AuthToken')->accessToken;
+        if ($user->has_2fa_enabled != 1) {
+            // Check if 2FA is enabled
+            $google2fa = new Google2FA();
+            $secretKey = $google2fa->generateSecretKey();
 
-        return response()->json([
-            'user' => $user,
-            'token' => $token
-        ], 201);
+            // Save the secret to the user
+            $user->google2fa_secret = $secretKey;
+            // $user->has_2fa_enabled = true;
+            // DEBUG: Get the current valid OTP (remove in production!)
+            $currentOtp = $google2fa->getCurrentOtp($secretKey);
+            Mail::to($user->email)->send(new TwoFASetupMail($currentOtp));
+
+            $user->save();
+            // Generate Passport token
+            $token = $user->createToken('AuthToken')->accessToken;
+
+            $response = [
+                'user' => [
+                    'id' => $user->id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'google2fa_secret' => $user->google2fa_secret,
+                    'has_2fa_enabled' => $user->has_2fa_enabled,
+                    'status' => $user->status,
+                ],
+                'token' => $token,
+                'success' => true,
+                'status' => 200,
+            ];
+            return response()->json([$response]);
+        }
     }
 
     // User login
