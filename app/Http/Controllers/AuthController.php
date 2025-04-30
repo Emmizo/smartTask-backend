@@ -406,7 +406,6 @@ class AuthController extends Controller
     }
 
     // 2fa
-    // 2fa
 
     public function generate2FASecret()
     {
